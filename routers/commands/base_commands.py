@@ -10,10 +10,10 @@ from db.crud import if_exist_user_by_uuid, create_new_user, get_user_by_uuid, up
 from handlers.handlers import logger
 from init import bot
 from keyboards import keyboards as kb
-from lexicon.lexicon import LEXICON_COMMANDS_ADMIN_MENU
+from lexicon.lexicon import LEXICON_COMMANDS_ADMIN_MENU, LEXICON_COMMANDS_ADMIN
 from models import User
 from states.registration_question import RegistrationQuestion
-from lexicon.message_constants.all_str_constants_ru import A_HELP_FOR_ADMIN, A_HELP_FOR_USER, A_ERROR_MESSAGE_ANSVER
+from lexicon.message_constants.all_str_constants_ru import A_HELP_FOR_USER, A_ERROR_MESSAGE_ANSVER
 from config.app_settings import settings
 
 router = Router(name=__name__)
@@ -21,7 +21,6 @@ router = Router(name=__name__)
 
 @router.message(CommandStart(), StateFilter(None))
 async def cmd_start(message: Message, state: FSMContext):
-    # print(message.model_dump_json(indent=4, exclude_none=True))
     await state.clear()
     if_exist = await if_exist_user_by_uuid(uuid=str(message.from_user.id))
     if not if_exist:
@@ -59,7 +58,10 @@ async def cmd_start(message: Message, state: FSMContext):
 @router.message(Command(commands="help", prefix="/"), StateFilter(None))
 async def help_command(message: Message):
     if str(message.from_user.id) in settings.ADMINS:
-        await message.answer(text=A_HELP_FOR_ADMIN, parse_mode=ParseMode.HTML)
+        text: str = ""
+        for key, value in LEXICON_COMMANDS_ADMIN.items():
+            text += f"{key} : <i>{value}</i>\n"
+        await message.answer(text=text, parse_mode=ParseMode.HTML)
     else:
         await message.answer(text=A_HELP_FOR_USER, parse_mode=ParseMode.HTML)
 
@@ -71,49 +73,8 @@ async def menu_command(message: Message):
         for key, value in LEXICON_COMMANDS_ADMIN_MENU.items():
             text += f"{key} : <i>{value}</i>\n"
         await message.answer(text=text)
-        # await message.answer(text=A_MENU_FOR_ADMIN)
     else:
         await message.answer(text="Простите", parse_mode=ParseMode.HTML)
-
-
-    # all_media_dir = settings.PATH_FOR_ALL_MEDIA_FILES
-    # await message.answer(all_media_dir)
-    #
-    # video_file_dir = FSInputFile(path=os.path.join(settings.PATH_FOR_ALL_MEDIA_FILES, '1.MOV'))
-    # video_file = os.path.join(settings.PATH_FOR_ALL_MEDIA_FILES, '1.MOV')
-    # print(video_file)
-    #
-    # vf = FSInputFile(path=video_file)
-    # fs = FSInputFile(path='/Users/kril/python_prj/trinity/all_media/1.MOV')
-    # print(fs)
-
-    # video = InputFile(filename='/Users/kril/python_prj/trinity/all_media/1.MOV')
-    # print(fs.path)
-    # print(fs.filename)
-    # print(fs.chunk_size)
-    # await message.answer_video(video=fs)
-    # await bot.send_video(
-    #     chat_id=message.from_user.id,
-    #     video=fs,
-    #     disable_notification=False,
-    # )
-    # await message.answer(video_file)
-
-    # await bot.send_video(
-    #         chat_id=message.from_user.id,
-    #         video=video_file
-    # )
-    # await message.answer(video_file=video_file)
-# @router.message(Command(commands="cancel"), StateFilter())
-# async def cancel_command(message: Message, state: FSMContext):
-#     await state.clear()
-#     await state.get_state()
-#     await message.answer("Действие отменено")
-
-# @router.message(StateFilter(None))
-# async def echo_message(message: Message):
-#     await bot.send_message(message.from_user.id, message.text)
-#     await bot.send_message(message.from_user.id, random.choice(A_ERROR_MESSAGE_ANSVER))
 
 
 @router.message(F.text)
