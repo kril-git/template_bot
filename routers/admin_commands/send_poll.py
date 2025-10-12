@@ -1,10 +1,9 @@
-import asyncio
 import logging
 
 from aiogram.types import InlineKeyboardMarkup
 
 from db.crud import get_users_by_role
-from routers.admin_commands.bot_answer import bot_answer
+from services.bot_answer import bot_answer
 from utils.ERoles import Roles
 
 logger = logging.getLogger(__name__)

@@ -1,3 +1,4 @@
+import logging
 import random
 
 from aiogram import Router, F
@@ -7,7 +8,6 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from db.crud import if_exist_user_by_uuid, create_new_user, get_user_by_uuid, update_last_visit_user_by_id
-from handlers.handlers import logger
 from init import bot
 from keyboards import keyboards as kb
 from lexicon.lexicon import LEXICON_COMMANDS_ADMIN_MENU, LEXICON_COMMANDS_ADMIN
@@ -17,6 +17,7 @@ from lexicon.message_constants.all_str_constants_ru import A_HELP_FOR_USER, A_ER
 from config.app_settings import settings
 
 router = Router(name=__name__)
+logger = logging.getLogger(__name__)
 
 
 @router.message(CommandStart(), StateFilter(None))

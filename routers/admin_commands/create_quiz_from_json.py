@@ -13,7 +13,7 @@ from keyboards.kbd_bilders import create_kbd_for_quiz, QuizCallbackFactory, edit
 from keyboards.keyboards import kb_quiz_push
 from states.create_quiz_from_json import CreateQuizFromJson
 from states.test import Test
-from routers.admin_commands.bot_answer import send_quiz_from_json
+from services.bot_answer import send_quiz_from_json
 from lexicon.message_constants.all_str_constants_ru import SEND_QUIZ_ALL_OR_ONE, EMOJI_NUM, EMOJI_ALL
 from config.app_settings import settings
 from common.function import get_data_from_json, check_type_action, check_password_in_files

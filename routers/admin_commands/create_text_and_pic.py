@@ -13,7 +13,7 @@ from lexicon.message_constants.all_str_constants_ru import (THINKING_FACE,
                                        POINTING_DOWN,
                                        A_CHOICE_PHOTO,
                                        )
-from routers.admin_commands.bot_answer import send_photo_and_text
+from services.bot_answer import send_photo_and_text
 from config.app_settings import settings
 
 router = Router(name=__name__)

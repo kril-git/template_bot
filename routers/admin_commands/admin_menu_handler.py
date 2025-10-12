@@ -14,7 +14,7 @@ from db.poll import get_all_polls, get_all_polls_tail, get_poll_result
 from keyboards.keyboards import kb_begin_or_cancel, kb_register
 from lexicon.lexicon import POLL_ANSWER_TEXT
 from models import MediaContent
-from routers.admin_commands.bot_answer import send_list_message
+from services.bot_answer import send_list_message
 from states.admin_menu_states import AdminMenuUploadvideoStates
 from states.update_role_to_admin import Update_To_Admin
 from config.app_settings import settings

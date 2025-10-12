@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
-from routers.admin_commands.bot_answer import send_video_and_text
+from services.bot_answer import send_video_and_text
 from states.create_vidio_states import CreateVideo
 from lexicon.message_constants.all_str_constants_ru import (
     POINTING_DOWN, SEND_QUIZ_ALL_OR_ONE,
