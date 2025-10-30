@@ -1,5 +1,3 @@
-import os
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -26,6 +24,7 @@ class Settings(BaseSettings):
     TRINITY_GROUP_CHAT_ID: str
     PATH_FOR_QUIZ_FILES: str
     PATH_FOR_ALL_MEDIA_FILES: str = ""
+
     @property
     def DATABASE_URL(self):
         # DSN

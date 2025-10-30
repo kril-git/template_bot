@@ -2,7 +2,7 @@ __all__ = ("router", )
 
 from aiogram import Router
 
-from handlers import router as commands_router
+# from handlers import router as commands_router
 # from handlers.handlers import router as handlers_router
 from .admin_commands import router as admin_router
 from middleware import router as outer_middleware
@@ -14,5 +14,5 @@ router.include_routers(outer_middleware,
                        # handlers_router,
                        admin_router,
                        test_quiz_router,
-                       commands_router,
+                       # commands_router,
                        )
